@@ -19,9 +19,7 @@ const TabIcon = ({ focused, iconFocus, iconNotFocus, title }: any) => {
     >
       {IconComponent}
       {focused && (
-        <Text className="text-secondary text-base font-semibold ml-2">
-          {title}
-        </Text>
+        <Text className="text-white text-base font-semibold ml-2">{title}</Text>
       )}
     </View>
   );
@@ -29,87 +27,90 @@ const TabIcon = ({ focused, iconFocus, iconNotFocus, title }: any) => {
 
 const _layout = () => {
   return (
-    <Tabs
-      screenOptions={{
-        tabBarShowLabel: false,
-        tabBarStyle: {
-          position: "absolute",
-          height: 52,
-          backgroundColor: "#2f0000",
-          marginHorizontal: 20,
-          marginBottom: 36,
-          borderColor: "#0f0d23",
-        },
-      }}
-    >
-      <Tabs.Screen
-        name="chats"
-        options={{
-          title: "Chats",
-          headerShown: false,
-          tabBarIcon: ({ focused }) => {
-            return (
-              <TabIcon
-                focused={focused}
-                iconFocus={
-                  <MaterialIcons name="message" size={24} color="black" />
-                }
-                iconNotFocus={
-                  <Feather name="message-square" size={24} color="black" />
-                }
-                title="Chats"
-              />
-            );
+    <>
+      <Tabs
+        screenOptions={{
+          tabBarShowLabel: false,
+          tabBarStyle: {
+            position: "absolute",
+            height: 52,
+            width: "auto",
+            backgroundColor: "#272727",
+            marginBottom: 44,
+            borderColor: "#272727",
           },
         }}
-      />
-      <Tabs.Screen
-        name="posts"
-        options={{
-          title: "Posts",
-          headerShown: false,
-          tabBarIcon: ({ focused }) => {
-            return (
-              <TabIcon
-                focused={focused}
-                iconFocus={
-                  <Entypo
-                    name="text-document-inverted"
-                    size={24}
-                    color="black"
-                  />
-                }
-                iconNotFocus={
-                  <Entypo name="text-document" size={24} color="black" />
-                }
-                title="Posts"
-              />
-            );
-          },
-        }}
-      />
-      <Tabs.Screen
-        name="settings"
-        options={{
-          title: "Settings",
-          headerShown: false,
-          tabBarIcon: ({ focused }) => {
-            return (
-              <TabIcon
-                focused={focused}
-                iconFocus={
-                  <Ionicons name="settings-sharp" size={24} color="black" />
-                }
-                iconNotFocus={
-                  <Ionicons name="settings-outline" size={24} color="black" />
-                }
-                title="Settings"
-              />
-            );
-          },
-        }}
-      />
-    </Tabs>
+      >
+        <Tabs.Screen
+          name="chats"
+          options={{
+            title: "Chats",
+            headerShown: false,
+            tabBarIcon: ({ focused }) => {
+              return (
+                <TabIcon
+                  focused={focused}
+                  iconFocus={
+                    <MaterialIcons name="message" size={24} color="white" />
+                  }
+                  iconNotFocus={
+                    <Feather name="message-square" size={24} color="white" />
+                  }
+                  title="Chats"
+                />
+              );
+            },
+          }}
+        />
+        <Tabs.Screen
+          name="posts"
+          options={{
+            title: "Posts",
+            headerShown: false,
+            tabBarIcon: ({ focused }) => {
+              return (
+                <TabIcon
+                  focused={focused}
+                  iconFocus={
+                    <Entypo
+                      name="text-document-inverted"
+                      size={24}
+                      color="white"
+                    />
+                  }
+                  iconNotFocus={
+                    <Entypo name="text-document" size={24} color="white" />
+                  }
+                  title="Posts"
+                />
+              );
+            },
+          }}
+        />
+        <Tabs.Screen
+          name="settings"
+          options={{
+            title: "Settings",
+            headerShown: false,
+            tabBarIcon: ({ focused }) => {
+              return (
+                <TabIcon
+                  focused={focused}
+                  iconFocus={
+                    <Ionicons name="settings-sharp" size={24} color="white" />
+                  }
+                  iconNotFocus={
+                    <Ionicons name="settings-outline" size={24} color="white" />
+                  }
+                  title="Settings"
+                />
+              );
+            },
+          }}
+        />
+      </Tabs>
+      <View className="bg-gray absolute bottom-0 left-0 right-0 h-14 w-auto"></View>
+    </>
   );
 };
 

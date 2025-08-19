@@ -1,7 +1,7 @@
 import { images } from "@/constants/images";
-import { createNewUser } from "@/services/supabase";
+import { signInWithEmail } from "@/services/supabase";
 import { useRouter } from "expo-router";
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   ActivityIndicator,
   Alert,
@@ -12,29 +12,25 @@ import {
   View,
 } from "react-native";
 
-export default function Index() {
+const Auth = () => {
   const router = useRouter();
-  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleRegister = async () => {
-    if (!username || !email || !password) {
-      Alert.alert(
-        "Registration failed",
-        "Please enter username, email and password."
-      );
+  const handleAuth = async () => {
+    if (!email || !password) {
+      Alert.alert("Authentication failed", "Please enter email and password.");
       return;
     }
 
     setLoading(true);
 
     try {
-      await createNewUser(email, password, username);
+      await signInWithEmail(email, password);
       router.replace("/(tabs)/chats");
     } catch (error) {
-      Alert.alert("Registration failed", String(error));
+      Alert.alert("Authentication failed", String(error));
     } finally {
       setLoading(false);
     }
@@ -44,12 +40,6 @@ export default function Index() {
     <View className="flex-1 bg-black">
       <Image source={images.logo} className="" />
       <Text>Welcome</Text>
-      <TextInput
-        placeholder="Enter your username"
-        placeholderTextColor="#999"
-        value={username}
-        onChangeText={(text: string) => setUsername(text)}
-      />
       <TextInput
         placeholder="Enter your email"
         placeholderTextColor="#999"
@@ -66,15 +56,17 @@ export default function Index() {
       />
       <TouchableOpacity
         className="bg-gray"
-        onPress={handleRegister}
+        onPress={handleAuth}
         disabled={loading}
       >
-        {loading ? <ActivityIndicator /> : <Text className="">Register</Text>}
+        {loading ? <ActivityIndicator /> : <Text className="">Sign In</Text>}
       </TouchableOpacity>
       <View>
-        <Text>"Already a member?"</Text>
-        <Text onPress={() => router.push("/auth" as any)}>Sign In</Text>
+        <Text>"Are you new?"</Text>
+        <Text onPress={() => router.push("/index" as any)}>Sign Up</Text>
       </View>
     </View>
   );
-}
+};
+
+export default Auth;

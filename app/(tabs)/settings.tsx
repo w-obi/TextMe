@@ -1,12 +1,8 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 
 const Settings = () => {
-  return (
-    <View>
-      <Text>Settings</Text>
-    </View>
-  );
+  return <View className="bg-black size-full"></View>;
 };
 
 export default Settings;
