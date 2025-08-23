@@ -35,9 +35,9 @@ const _layout = () => {
             position: "absolute",
             height: 52,
             width: "auto",
-            backgroundColor: "#272727",
+            backgroundColor: "#334155",
             marginBottom: 44,
-            borderColor: "#272727",
+            borderColor: "#334155",
           },
         }}
       >
@@ -109,7 +109,7 @@ const _layout = () => {
           }}
         />
       </Tabs>
-      <View className="bg-gray absolute bottom-0 left-0 right-0 h-14 w-auto"></View>
+      <View className="bg-slate-700 absolute bottom-0 left-0 right-0 h-14 w-auto"></View>
     </>
   );
 };
