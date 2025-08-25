@@ -10,7 +10,10 @@ export default function RootLayout() {
         <Stack.Screen name="reg" options={{ headerShown: false }} />
         <Stack.Screen name="auth" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="messages/[id]" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="messages/[user_id]"
+          options={{ headerShown: false }}
+        />
       </Stack>
     </>
   );

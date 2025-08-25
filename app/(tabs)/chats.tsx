@@ -5,7 +5,7 @@ import Search from "@/components/Search";
 import TopBar from "@/components/TopBar";
 import { addContacts, fetchUsersChat } from "@/services/supabase";
 import useFetch from "@/services/useFetch";
-import { router } from "expo-router";
+import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, FlatList, Text, View } from "react-native";
 
@@ -16,6 +16,8 @@ const Chats = () => {
   const [isContactAdded, setIsContactAdded] = useState<boolean>(false);
   const [contactInput, setContactInput] = useState<string>("");
   const [isPressed, setIsPressed] = useState<boolean>(false);
+
+  const router = useRouter();
 
   const {
     data: usersChat,
@@ -51,6 +53,7 @@ const Chats = () => {
           textColor="#ffffff"
           isSearchPresent={true}
           enableSearch={() => setIsTopBar(false)}
+          exit={() => router.push("/reg")}
         ></TopBar>
       ) : (
         <Search
@@ -72,13 +75,8 @@ const Chats = () => {
       ) : (
         <FlatList
           data={usersChat}
-          renderItem={({ item }) => (
-            <PreviewUserChat
-              {...item}
-              onPress={() => router.push("/messages/[id]")}
-            />
-          )}
-          keyExtractor={(item) => item.user_id ?? Math.random()}
+          renderItem={({ item }) => <PreviewUserChat {...item} />}
+          keyExtractor={(item) => item.id}
           ListEmptyComponent={
             !usersChatLoading &&
             !usersChatError &&
@@ -98,7 +96,7 @@ const Chats = () => {
           onPress2={() => setIsPressed(false)}
         />
       ) : (
-        <AddButton onPress={() => setIsPressed(true)} bgColor="#334155" />
+        <AddButton onPress={() => setIsPressed(true)} bgColor="#1e3a8a" />
       )}
     </View>
   );

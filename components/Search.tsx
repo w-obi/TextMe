@@ -12,7 +12,7 @@ const Search = ({
 }: Search) => {
   return (
     <View
-      className="flex flex-row h-28 bg-slate-700 pt-[40px]"
+      className="flex flex-row h-28 pt-[40px]"
       style={{ backgroundColor: bgColor }}
     >
       <TouchableOpacity onPress={disableSearch}>

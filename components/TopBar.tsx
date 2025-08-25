@@ -10,6 +10,7 @@ const TopBar = ({
   textColor,
   isSearchPresent,
   enableSearch,
+  exit,
 }: TopBar) => {
   const router = useRouter();
 
@@ -37,11 +38,7 @@ const TopBar = ({
         </TouchableOpacity>
       )}
 
-      <TouchableOpacity
-        onPress={() => {
-          router.push("/reg");
-        }}
-      >
+      <TouchableOpacity onPress={exit}>
         <Ionicons
           name="exit-outline"
           size={26}

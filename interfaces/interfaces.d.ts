@@ -5,6 +5,7 @@ interface Message {
     sender_id: string | null;
     document_title: string | null;
     storage_path: string | null;
+    receiver_id: string;
 }
 
 interface User {
@@ -21,6 +22,7 @@ interface TopBar {
     textColor: string;
     isSearchPresent: boolean;
     enableSearch?: () => void;
+    exit: () => void;
 }
 
 interface Search {
@@ -30,15 +32,6 @@ interface Search {
     onChangeText?: (t: string) => void;
     disableSearch?: () => void;
     bgColor: string;
-}
-
-interface UsersChat {
-    user_id: string;
-    username: string;
-    email: string;
-    last_message: string | null;
-    last_message_time: string | null;
-    profile_picture_url: string | null;
 }
 
 interface AddButton {
@@ -54,9 +47,50 @@ interface AddContactInput {
 }
 
 interface PreviewUserChat {
-    username: string;
-    last_message: string | null;
-    last_message_time: string | null;
-    profile_picture_url: string | null;
-    onPress?: () => void;
+    id: string;
+    message: string;
+    created_at: string;
+
+    sender_id: string;
+    sender_username: string;
+    sender_profile_picture_url: string;
+
+    receiver_id: string;
+    receiver_username: string;
+    receiver_profile_picture_url: string;
+}
+
+interface TextUserButton {
+    placeholder: string;
+    value?: string;
+    onChangeText?: (t: string) => void;
+    bgColor: string;
+    isTextPresent: boolean;
+    onPressEnter?: () => void;
+}
+
+interface MessageComp {
+    id: string;
+    created_at: string;
+    message: string;
+    receiver_id: string;
+    sender_id: string;
+}
+
+interface GroupMessageComp {
+    id: string;
+    created_at: string;
+    message: string;
+    receiver_id: string;
+    receiver_profile_picture_url: string;
+    receiver_username: string;
+    sender_id: string;
+    sender_profile_picture_url: string;
+    sender_username: string;
+}
+
+interface CurrentSection {
+    key: string;
+    title: string;
+    data: MessageComp[];
 }

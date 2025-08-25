@@ -12,26 +12,29 @@ export async function fetchUsers(): Promise<User[]> {
   return data ?? [];
 }
 
-export async function fetchUsersChat(): Promise<UsersChat[]> {
-  const {data: user, error: userError} = await supabase.from("users").select("contacts").eq("id", CURRENT_USER_ID).single();
-
-  if (userError) throw userError;
-
-  const contacts = user?.contacts ?? [];
-
-  const res = await supabase.from("users_with_last_message").select("*").in("email", contacts);
-
-  if (res.error) throw res.error;
-
-  return (res.data ?? []) as UsersChat[];
+export async function fetchChat(sender_id: string): Promise<MessageComp[]> {
+  const {data, error} = await supabase.from("messages_with_users").select("*").or(
+    `and(sender_id.eq.${CURRENT_USER_ID},receiver_id.eq.${sender_id}),and(sender_id.eq.${sender_id},receiver_id.eq.${CURRENT_USER_ID})`
+  ).order("created_at", {ascending: true});
+  
+  if (error) throw error;
+  return (data ?? []) as MessageComp[];
 }
 
-export async function fetchMessages(): Promise<Message[]> {
-  const { data, error } = await supabase.from("messages")
-                                        .select("*")
-                                        .order("created_at", { ascending: false });
-  if (error) throw error;
-  return data ?? [];
+export async function fetchUsersChat(): Promise<PreviewUserChat[]> {
+  const {data: currentUser, error: currentUserError} = await supabase.from("users").select("contacts").eq("id", CURRENT_USER_ID).single();
+  if (currentUserError) throw currentUserError;
+
+  const contacts: string[] = currentUser?.contacts ?? [];
+
+  if (!contacts || contacts.length === 0) return [];
+
+  const {data: message, error: messageError} = await supabase.from("users_with_last_message").select("*").or(
+    `and(sender_id.eq.${CURRENT_USER_ID},receiver_email.in.(${contacts})),receiver_id.eq.${CURRENT_USER_ID}`
+  ).order("created_at", { ascending: false });
+  // and(receiver_id.eq.${CURRENT_USER_ID},sender_email.in.(${contacts}))
+  if (messageError) {console.log(messageError); throw messageError;}
+  return (message ?? []) as PreviewUserChat[];
 }
 
 async function signUpNewUser(email: string, password: string) {
@@ -41,8 +44,8 @@ async function signUpNewUser(email: string, password: string) {
 
 export async function signInWithEmail(email: string, password: string) {
   const {data: authData, error: authError} = await supabase.auth.signInWithPassword({email, password});
-  CURRENT_USER_ID = authData.user?.id;
   if (authError) throw authError;
+  CURRENT_USER_ID = authData.user?.id;
 }
 
 export async function createNewUser(
@@ -57,11 +60,11 @@ export async function createNewUser(
 
     if (regError) throw regError;
 
-    const userId = regData.user?.id;
     CURRENT_USER_ID = regData.user?.id;
-    const created_at = regData.user?.created_at ?? new Date().toISOString();
+    const userId = regData.user?.id;
+    if (!userId) throw new Error("createNewUser: no user id returned from supabase after sign up");
 
-    if (!userId) throw new Error("createNewUser: no user id returned from supabase after sign up")
+    const created_at = regData.user?.created_at ?? new Date().toISOString();
 
     const { error: insertError } = await supabase.from("users").insert([
       {
@@ -88,5 +91,16 @@ export async function addContacts(newContact: string) {
 
   const res = await supabase.from("users").update({contacts: updatedContacts}).eq("id", CURRENT_USER_ID);
 
+  if (res.error) throw res.error;
+}
+
+export async function sendMessage(message: string | null, document_title: string | null, storage_path: string | null, receiver_id: string) {  
+  const res = await supabase.from("messages").insert([{
+    message,
+    sender_id: CURRENT_USER_ID,
+    document_title,
+    storage_path,
+    receiver_id
+  }]).select().single();
   if (res.error) throw res.error;
 }
