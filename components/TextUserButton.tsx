@@ -21,7 +21,7 @@ const TextUserButton = ({
   }, [isTextPresent]);
 
   return (
-    <View className="flex flex-row h-14 mb-16 justify-center items-center">
+    <View className="flex flex-row h-14 mb-24 justify-center items-center">
       <View
         className="flex flex-row px-6 w-[85%] justify-center items-center rounded-full"
         style={{ backgroundColor: bgColor }}
@@ -47,7 +47,7 @@ const TextUserButton = ({
         </TouchableOpacity>
       </View>
 
-      <View className="bg-blue-900 rounded-full p-3 ml-1">
+      <View className="bg-secondary rounded-full p-3 ml-1">
         {isCamera ? (
           <TouchableOpacity>
             <Ionicons name="camera-sharp" size={26} color="white" />

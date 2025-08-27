@@ -6,7 +6,7 @@ const AddButton = ({ onPress, bgColor }: AddButton) => {
   return (
     <TouchableOpacity
       onPress={onPress}
-      className="absolute bottom-32 right-8 p-4 z-10 shadow-lg rounded-full justify-center items-center"
+      className="absolute bottom-48 right-8 p-4 z-10 shadow-lg rounded-full justify-center items-center"
       style={{ backgroundColor: bgColor }}
     >
       <AntDesign name="pluscircleo" size={32} color="white" />

@@ -3,11 +3,17 @@ import Search from "@/components/Search";
 import TextUserButton from "@/components/TextUserButton";
 import TopBar from "@/components/TopBar";
 import { groupMessagesByDay } from "@/services/handleDate";
-import { fetchChat, sendMessage } from "@/services/supabase";
+import { fetchChat, fetchUserProfile, sendMessage } from "@/services/supabase";
 import useFetch from "@/services/useFetch";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, SectionList, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  ImageBackground,
+  SectionList,
+  Text,
+  View,
+} from "react-native";
 
 const ChatDetails = () => {
   const [isTopBar, setIsTopBar] = useState<boolean>(true);
@@ -28,7 +34,7 @@ const ChatDetails = () => {
       setNewMessage("");
       refetchMessages();
     } catch (err) {
-      throw err;
+      console.log(err);
     }
   };
 
@@ -40,12 +46,18 @@ const ChatDetails = () => {
   } = useFetch(() => fetchChat(user_id as string));
 
   useEffect(() => {
-    refetchMessages();
+    if (user_id) refetchMessages();
   }, [user_id]);
+
+  const { data: user } = useFetch(() => fetchUserProfile(user_id as string));
 
   const sections = groupMessagesByDay(messages);
   return (
-    <View className="bg-white size-full">
+    <ImageBackground
+      source={require("../../assets/images/chats.png")}
+      className="flex-1"
+      resizeMode="cover"
+    >
       {isTopBar ? (
         <TopBar
           bgColor="#334155"
@@ -53,6 +65,9 @@ const ChatDetails = () => {
           isSearchPresent={true}
           enableSearch={() => setIsTopBar(false)}
           exit={() => router.push("/(tabs)/chats")}
+          isProfilePresent={true}
+          profile_picture_url={user?.profile_picture_url}
+          username={user?.username}
         ></TopBar>
       ) : (
         <Search
@@ -64,10 +79,10 @@ const ChatDetails = () => {
         />
       )}
       {messagesLoading ? (
-        <ActivityIndicator size="large" color="334155" className="my-3" />
+        <ActivityIndicator size="large" color="#334155" className="my-3" />
       ) : messagesError ? (
         <View className="justify-center items-center">
-          <Text className="text-gray-500">
+          <Text className="text-white font-bold">
             Chats.tsx error: {String(messagesError)}
           </Text>
         </View>
@@ -75,7 +90,7 @@ const ChatDetails = () => {
         <SectionList
           sections={sections}
           renderSectionHeader={({ section }) => (
-            <View className="bg-blue-900 mt-9 w-32 h-14 rounded-2xl justify-center items-center self-center mb-8">
+            <View className="bg-secondary mt-9 w-32 h-14 rounded-2xl justify-center items-center self-center mb-8">
               <Text className="text-white font-bold">{section.title}</Text>
             </View>
           )}
@@ -86,7 +101,7 @@ const ChatDetails = () => {
             !messagesError &&
             (!messages || messages.length === 0) ? (
               <View className="justify-center items-center mt-60">
-                <Text className="text-gray-500">
+                <Text className="text-white font-bold">
                   No messages, send a new one!
                 </Text>
               </View>
@@ -104,7 +119,7 @@ const ChatDetails = () => {
           handleSendMessage(newMessage, null, null, user_id as string)
         }
       />
-    </View>
+    </ImageBackground>
   );
 };
 

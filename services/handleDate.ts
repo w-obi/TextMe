@@ -6,22 +6,22 @@ export function formatUserChatTime(dateString: string | null): string {
   const date = new Date(dateString);
 
   if (isToday(date)) {
-    return format(date, "p");
+    return "Today  " + format(date, "p");
   }
 
   if (isYesterday(date)) {
-    return "Yesterday " + format(date, "p");
+    return "Yesterday  " + format(date, "p");
   }
 
   if (isThisWeek(date)) {
-    return format(date, "EEEE") + " " + format(date, "p");
+    return format(date, "EEEE") + "  " + format(date, "p");
   }
 
   if (isThisYear(date)) {
-    return format(date, "MMM d") + " " + format(date, "p");
+    return format(date, "MMM d") + "  " + format(date, "p");
   }
 
-  return format(date, "yyyy MMM d") + " " + format(date, "p");
+  return format(date, "yyyy MMM d") + "  " + format(date, "p");
 }
 
 export function formatChat(dateString: string | null): string {

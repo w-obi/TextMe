@@ -23,6 +23,9 @@ interface TopBar {
     isSearchPresent: boolean;
     enableSearch?: () => void;
     exit: () => void;
+    isProfilePresent?: boolean;
+    profile_picture_url?: string | null;
+    username?: string | null;
 }
 
 interface Search {
@@ -47,17 +50,13 @@ interface AddContactInput {
 }
 
 interface PreviewUserChat {
-    id: string;
-    message: string;
-    created_at: string;
-
-    sender_id: string;
-    sender_username: string;
-    sender_profile_picture_url: string;
-
-    receiver_id: string;
-    receiver_username: string;
-    receiver_profile_picture_url: string;
+    chat_id: string;
+    id: string | null;
+    message: string | null;
+    created_at: string | null;
+    user_id: string;
+    username: string;
+    profile_picture_url: string;
 }
 
 interface TextUserButton {
@@ -77,20 +76,29 @@ interface MessageComp {
     sender_id: string;
 }
 
-interface GroupMessageComp {
-    id: string;
-    created_at: string;
-    message: string;
-    receiver_id: string;
-    receiver_profile_picture_url: string;
-    receiver_username: string;
-    sender_id: string;
-    sender_profile_picture_url: string;
-    sender_username: string;
-}
+// interface GroupMessageComp {
+//     id: string;
+//     created_at: string;
+//     message: string;
+//     receiver_id: string;
+//     receiver_profile_picture_url: string;
+//     receiver_username: string;
+//     sender_id: string;
+//     sender_profile_picture_url: string;
+//     sender_username: string;
+// }
 
 interface CurrentSection {
     key: string;
     title: string;
     data: MessageComp[];
 }
+
+// interface Themes {
+//     default,
+//     white,
+//     blue,
+//     red,
+//     yellow,
+//     green
+// }

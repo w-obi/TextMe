@@ -1,7 +1,6 @@
 import { images } from "@/constants/images";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { useRouter } from "expo-router";
 import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 
@@ -11,42 +10,56 @@ const TopBar = ({
   isSearchPresent,
   enableSearch,
   exit,
+  isProfilePresent,
+  profile_picture_url,
+  username,
 }: TopBar) => {
-  const router = useRouter();
-
   return (
     <View
-      className="flex flex-row h-28 pt-[46px]"
+      className="flex flex-row items-center justify-between h-28 px-4 pt-[46px]"
       style={{ backgroundColor: bgColor }}
     >
-      <Image source={images.logo} className="w-10 h-14 ml-6" />
-      <Text
-        className="ml-3 text-2xl font-bold mt-[8px]"
-        style={{ color: textColor }}
-      >
-        TextMe
-      </Text>
+      <View className="flex flex-row items-center">
+        {isProfilePresent ? (
+          <>
+            <Image
+              source={
+                profile_picture_url
+                  ? { uri: profile_picture_url }
+                  : images.empty_profile
+              }
+              className="w-12 h-12 rounded-full"
+            />
+            <Text
+              className="text-2xl font-bold ml-3"
+              style={{ color: textColor }}
+            >
+              {username}
+            </Text>
+          </>
+        ) : (
+          <>
+            <Image source={images.logo} className="w-14 h-14" />
+            <Text
+              className="ml-3 text-2xl font-bold"
+              style={{ color: textColor }}
+            >
+              TextMe
+            </Text>
+          </>
+        )}
+      </View>
+      <View className="flex flex-row items-center">
+        {isSearchPresent && (
+          <TouchableOpacity onPress={enableSearch} className="mr-12">
+            <AntDesign name="search1" size={24} color="white" />
+          </TouchableOpacity>
+        )}
 
-      {isSearchPresent && (
-        <TouchableOpacity onPress={enableSearch}>
-          <AntDesign
-            name="search1"
-            size={24}
-            color="white"
-            className="ml-[140px] mt-[10px]"
-          />
+        <TouchableOpacity onPress={exit}>
+          <Ionicons name="exit-outline" size={26} color="white" />
         </TouchableOpacity>
-      )}
-
-      <TouchableOpacity onPress={exit}>
-        <Ionicons
-          name="exit-outline"
-          size={26}
-          color="white"
-          className="mt-[8px]"
-          style={isSearchPresent ? { marginLeft: 40 } : { marginLeft: 204 }}
-        />
-      </TouchableOpacity>
+      </View>
     </View>
   );
 };

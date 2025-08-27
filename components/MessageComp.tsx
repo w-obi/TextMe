@@ -13,9 +13,16 @@ const MessageComp = ({ created_at, message, sender_id }: MessageComp) => {
           : { justifyContent: "flex-start" }
       }
     >
-      <View className="bg-slate-700 rounded-full flex flex-row px-6 py-2 justify-center items-center">
-        <Text className="text-white text-lg">{message}</Text>
-        <Text className="text-white ml-3">
+      <View
+        className="rounded-2xl px-4 py-2 max-w-[70%]"
+        style={
+          CURRENT_USER_ID == sender_id
+            ? { backgroundColor: "#1e40af" }
+            : { backgroundColor: "#334155" }
+        }
+      >
+        <Text className="text-white text-base flex-wrap">{message}</Text>
+        <Text className="text-white mt-1 text-xs self-end">
           {formatChat(created_at) ?? null}
         </Text>
       </View>

@@ -4,6 +4,7 @@ import { useState } from "react";
 import {
   ActivityIndicator,
   Alert,
+  ImageBackground,
   Text,
   TextInput,
   TouchableOpacity,
@@ -40,57 +41,60 @@ export default function Reg() {
 
   return (
     <View className="flex-1 bg-white">
-      <Text className="justify-center mt-20 mx-auto text-black text-5xl font-bold">
-        TextMe
-      </Text>
-      <Text className="justify-center mt-10 mx-auto text-black text-3xl font-semibold">
-        Welcome
-      </Text>
-      <TextInput
-        placeholder="Enter your username"
-        placeholderTextColor="#999"
-        value={username}
-        onChangeText={(text: string) => setUsername(text)}
-        className="justify-center bg-slate-700 mx-5 mt-40 rounded-full pl-4 text-white"
-      />
-      <TextInput
-        placeholder="Enter your email"
-        placeholderTextColor="#999"
-        value={email}
-        onChangeText={(text: string) => setEmail(text)}
-        autoCapitalize="none"
-        className="justify-center bg-slate-700 mx-5 mt-5 rounded-full pl-4 text-white"
-      />
-      <TextInput
-        placeholder="Enter your password"
-        placeholderTextColor="#999"
-        secureTextEntry
-        value={password}
-        onChangeText={(text: string) => setPassword(text)}
-        className="justify-center bg-slate-700 mx-5 mt-5 rounded-full pl-4 text-white"
-      />
-      <TouchableOpacity
-        className="bg-slate-700 mx-20 mt-20 rounded-full w-auto h-15 py-2"
-        onPress={handleRegister}
-        disabled={loading}
+      <ImageBackground
+        source={require("../assets/images/external.png")}
+        className="flex-1"
+        resizeMode="cover"
       >
-        {loading ? (
-          <ActivityIndicator />
-        ) : (
-          <Text className="mx-auto text-white text-xl font-semibold">
-            Register
-          </Text>
-        )}
-      </TouchableOpacity>
-      <View className="flex flex-row mt-40 ml-20">
-        <Text className="mt-2">Already a member?</Text>
+        <Text className="justify-center mt-20 mx-auto text-slate-300 text-5xl font-bold">
+          TextMe
+        </Text>
+        <Text className="justify-center mt-10 mx-auto text-slate-300 text-3xl font-semibold">
+          Welcome
+        </Text>
+        <TextInput
+          placeholder="Enter your username"
+          placeholderTextColor="#a8b5db"
+          value={username}
+          onChangeText={(text: string) => setUsername(text)}
+          className="justify-center bg-slate-700 mx-5 mt-40 rounded-full pl-4 text-white"
+        />
+        <TextInput
+          placeholder="Enter your email"
+          placeholderTextColor="#a8b5db"
+          value={email}
+          onChangeText={(text: string) => setEmail(text)}
+          autoCapitalize="none"
+          className="justify-center bg-slate-700 mx-5 mt-5 rounded-full pl-4 text-white"
+        />
+        <TextInput
+          placeholder="Enter your password"
+          placeholderTextColor="#a8b5db"
+          secureTextEntry
+          value={password}
+          onChangeText={(text: string) => setPassword(text)}
+          className="justify-center bg-slate-700 mx-5 mt-5 rounded-full pl-4 text-white"
+        />
+        <TouchableOpacity
+          className="bg-slate-700 mx-20 mt-20 rounded-full w-auto h-15 py-2"
+          onPress={handleRegister}
+          disabled={loading}
+        >
+          {loading ? (
+            <ActivityIndicator />
+          ) : (
+            <Text className="mx-auto text-white text-xl font-semibold">
+              Register
+            </Text>
+          )}
+        </TouchableOpacity>
         <Text
-          className="mx-20 bg-slate-700 rounded-full text-white font-semibold h-9 px-6 py-2"
+          className="self-center mt-40 bg-slate-700 rounded-full text-white font-semibold h-11 px-6 py-3"
           onPress={() => router.push("/auth" as any)}
         >
-          Sign In
+          Already a member?{"      "}Sign In
         </Text>
-      </View>
+      </ImageBackground>
     </View>
   );
 }
