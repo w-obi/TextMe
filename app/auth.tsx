@@ -79,7 +79,7 @@ const Auth = () => {
         </TouchableOpacity>
         <Text
           className="self-center mt-40 bg-slate-700 rounded-full text-white font-semibold h-11 px-6 py-3"
-          onPress={() => router.push("/reg")}
+          onPress={() => router.push("/")}
         >
           Are you new?{"      "}Sign Up
         </Text>

@@ -63,7 +63,7 @@ const Chats = () => {
           textColor="#ffffff"
           isSearchPresent={true}
           enableSearch={() => setIsTopBar(false)}
-          exit={() => router.push("/reg")}
+          exit={() => router.push("/")}
         ></TopBar>
       ) : (
         <Search

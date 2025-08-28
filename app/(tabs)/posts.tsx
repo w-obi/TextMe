@@ -16,7 +16,7 @@ const Posts = () => {
         bgColor="#334155"
         textColor="#ffffff"
         isSearchPresent={true}
-        exit={() => router.push("/reg")}
+        exit={() => router.push("/")}
       />
       <View className="self-center mt-96 max-w-[70%] bg-slate-700 rounded-2xl p-4">
         <Text className="font-bold text-white flex-wrap">Coming Soon!!!</Text>
