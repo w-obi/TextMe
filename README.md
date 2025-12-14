@@ -9,6 +9,7 @@
   + [Description](#description)
   + [Tools](#tools)
   + [Preview](#preview)
+  + [Repository structure](#repository-structure)
 - [Setup Project](#setup-project)
   + [Prerequisites](#prerequisites)
   + [Get Started](#get-started)
@@ -24,27 +25,40 @@
 TextMe is an android app designed for communication between user. The purpose of writing this project was to learn the development via PostgreSQL. ***You can download the APK file [here](https://portfolio-yeradil.vercel.app/)***.
 
 ### Tools
-1. React Native: an open-source framework used for building native-style, cross-platform applications for iOS and Android using JavaScript.
-2. Expo: a framework that makes developing Android and iOS apps easier. It is highly recommended for beginners to start.
-3. TailwindCSS: a utility-first CSS framework designed to enable developers to create applications faster and more efficiently with smaller css files.
-4. Supabase: an open-source Backend-as-a-Service (BaaS) platform designed to simplify the development of web, mobile, and AI applications which was built on top of PostgreSQL and thus provides developers with a suite of tools to manage backend infrastructure effortlessly, making it a popular alternative to Firebase.
+1. [React Native](https://reactnative.dev/docs/environment-setup): an open-source framework used for building native-style, cross-platform applications for iOS and Android using JavaScript.
+2. [Expo](https://docs.expo.dev/): a framework that makes developing Android and iOS apps easier. It is highly recommended for beginners to start.
+3. [TailwindCSS](https://v2.tailwindcss.com/docs/guides/create-react-app): a utility-first CSS framework designed to enable developers to create applications faster and more efficiently with smaller css files.
+4. [Supabase](https://supabase.com/): an open-source Backend-as-a-Service (BaaS) platform designed to simplify the development of web, mobile, and AI applications which was built on top of PostgreSQL and thus provides developers with a suite of tools to manage backend infrastructure effortlessly, making it a popular alternative to Firebase.
 
 
 ### Preview
 ---
-*"Register" page*
+*"Register" page*, /app/index.tsx or auth.tsx used for user to sign in
 
-![*"Register"* page of the app](/assets/images/TextMeRegister.jpg)
-
----
-*"Chats" page*
-
-![*"Chats"* page of the app](/assets/images/TextMeChats.jpg)
+![*"Register"* page of the app, TextMeRegister.jpg](/assets/images/TextMeRegister.jpg)
 
 ---
-*"Individual Chat" page*
+*"Chats" page*, /app/(tabs)/chats.tsx
 
-![*"Individual Chat"* page of the app](/assets/images/TextMeMC.jpg)
+![*"Chats"* page of the app, TextMeChats.jpg](/assets/images/TextMeChats.jpg)
+
+---
+*"Individual Chat" page*, /app/messages/[user_id].tsx
+
+![*"Individual Chat"* page of the app, TextMeMC.jpg](/assets/images/TextMeMC.jpg)
+
+### Repository Structure
+
+1. android: the folder generated after creating APK file
+2. app: the folder containing the main logic of this project
+   - (tabs): contains main pages used in the project
+   - messages: [user_id].tsx used as a template for different chats between two users
+3. assets: the folder containing resources used in the project including images, icons and fonts
+4. components: contains reusable components potentially used in multiple files
+5. constants: used for code cleanliness
+6. interfaces: stores all interfaces used in this project
+7. services: contains hooks, functions used for fetching data
+8. types: used for importing different types of files
 
 ## Setup Project
 
@@ -53,6 +67,8 @@ Make sure that the following tools are already installed:
 - [Node.js](https://nodejs.org/en/download/): It is a JavaScript runtime build.
 - [Git](https://git-scm.com/install/): It is an open source version control system.
 - [Expo Go](https://docs.expo.dev/get-started/set-up-your-environment/): For debugging with physical a device or emulator. Please refer to the link for instructions.
+
+Please also register in Supabase, because later on you will have to connect them with this project.
 
 ### Get Started
 
@@ -72,6 +88,13 @@ Make sure that the following tools are already installed:
 
    ```bash
    npm install -g expo-cli
+   ```
+
+5. Create .env file at the root of the project and assign values for the following fields:
+
+   ```.env
+   EXPO_PUBLIC_SUPABASE_URL=
+   EXPO_PUBLIC_SUPABASE_ANON_KEY=
    ```
 
 6. Start the app
