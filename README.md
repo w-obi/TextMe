@@ -68,7 +68,7 @@ Make sure that the following tools are already installed:
 - [Git](https://git-scm.com/install/): It is an open source version control system.
 - [Expo Go](https://docs.expo.dev/get-started/set-up-your-environment/): For debugging with physical a device or emulator. Please refer to the link for instructions.
 
-Please also register in Supabase, because later on you will have to connect them with this project.
+Please also register in Supabase, because later on you will have to connect it with this project.
 
 ### Get Started
 
